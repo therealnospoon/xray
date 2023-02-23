@@ -4,6 +4,8 @@
     import { fade, fly } from "svelte/transition";
     import { cubicOut } from "svelte/easing";
 
+    import type { Icon as IconType } from "$lib/types";
+    import Icon from "$lib/components/icon.svelte";
     import Transactions from "$lib/components/transactions.svelte";
     import JSON from "$lib/components/json.svelte";
     import Collapse from "$lib/components/collapse.svelte";
@@ -190,6 +192,18 @@
                 </div>
             {/if}
             <div class="mt-3">
+                <div class="collapse-title flex items-center py-1">
+                    <div class="center h-8 w-8 rounded-full">
+                        <Icon
+                            id="history"
+                            size="md"
+                            fill="success"
+                        />
+                    </div>
+                    <div class="ml-2">
+                        <p class="text-primary">Transaction history</p>
+                    </div>
+                </div>
                 <Transactions
                     account={address}
                     ref="@token:{address}"
