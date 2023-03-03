@@ -8,6 +8,7 @@
     import Menu from "$lib/components/menu.svelte";
     import Search from "$lib/components/search.svelte";
     import DevBanner from "$lib/components/dev-banner.svelte";
+    import ConnectWalletButton from "./connect-wallet-button.svelte";
     import Stats from "$lib/components/stats.svelte";
 </script>
 
@@ -44,7 +45,8 @@
     </div>
 
     <div class="col-span-2 flex items-center justify-end">
-        <div class="flex justify-end pr-2">
+        <ConnectWalletButton />
+        <div class="ml-2 flex justify-end pr-2">
             <a href="#modal-menu">
                 <div class="btn-ghost btn">
                     <Icon

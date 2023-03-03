@@ -13,13 +13,11 @@
 
     import { walletStore } from "@svelte-on-solana/wallet-adapter-core";
 
-    import { pasteFromClipboard } from "$lib/util/clipboard";
-
-    import { showConnectWallet } from "$lib/state/stores/connect-wallet";
-
     import { showModal } from "$lib/state/stores/modals";
 
     import Icon from "$lib/components/icon.svelte";
+
+    import ConnectWalletButton from "$lib/components/connect-wallet-button.svelte";
 
     import { recentSearchesKey } from "$lib/config";
 
@@ -40,26 +38,11 @@
     let inputValue: string = "";
     let isSearching = false;
     let connected = false;
-    let isBackpack = false;
     let recent = [] as SearchResult[];
 
     let showSearchError = () => "";
 
     const dispatch = createEventDispatcher();
-
-    const setFromClipboard = async () => {
-        const clipboard = await pasteFromClipboard();
-
-        if (clipboard) {
-            inputValue = clipboard;
-        }
-    };
-
-    const connectWallet = () => {
-        connected = false;
-
-        showConnectWallet();
-    };
 
     const searchFailed = () => {
         isSearching = false;
@@ -125,9 +108,6 @@
 
     onMount(() => {
         recent = getRecentSearches();
-
-        isBackpack =
-            window?.localStorage?.getItem("walletAdapter") === '"Backpack"';
     });
 
     $: if ($walletStore.connected && !connected) {
@@ -233,20 +213,9 @@
 </div>
 
 {#if size === "lg"}
-    <div
-        class="relative z-10 grid grid-flow-dense grid-cols-1 py-2 md:grid-cols-4"
-    >
-        <button
-            class="bg-faint btn-outline btn col-span-1 mb-4 md:ml-2"
-            on:click|preventDefault={newSearch}
-        >
-            <span class="text-sm">Go</span>
-        </button>
-        <button
-            class="bg-faint btn-outline btn col-span-3 mb-4 md:order-first"
-            on:click|preventDefault={connectWallet}
-        >
-            <span class="text-sm">{isBackpack ? "🎒" : ""}Connect Wallet</span>
-        </button>
+    <div class="relative z-10 grid grid-cols-1 py-1 md:grid-cols-3">
+        <ConnectWalletButton mobileNav={false} />
+        <div />
+        <div />
     </div>
 {/if}
