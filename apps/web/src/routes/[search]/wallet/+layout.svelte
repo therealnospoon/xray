@@ -22,8 +22,8 @@
 
     import { SOL } from "@helius-labs/xray-proton";
 
-    import formatMoney from "$lib/util/format-money";
-    import shortenString from "$lib/util/shorten-string";
+    import { formatMoney } from "@helius-labs/xray-util";;
+    import { shortenString } from "@helius-labs/xray-util";;
 
     import CopyButton from "$lib/components/copy-button.svelte";
     import Icon from "$lib/components/icon.svelte";

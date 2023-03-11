@@ -6,7 +6,7 @@
 
     import { fade } from "svelte/transition";
 
-    import shortenString from "$lib/util/shorten-string";
+    import { shortenString } from "@helius-labs/xray-util";
     import CopyButton from "./copy-button.svelte";
 
     export let data: ProtonAccount;

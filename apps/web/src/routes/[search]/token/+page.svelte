@@ -17,7 +17,7 @@
 
 <script lang="ts">
     import { page } from "$app/stores";
-    import shortenString from "$lib/util/shorten-string";
+    import { shortenString } from "@helius-labs/xray-util";
     import { cubicOut } from "svelte/easing";
     import { fade, fly } from "svelte/transition";
 

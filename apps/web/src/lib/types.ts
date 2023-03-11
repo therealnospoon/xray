@@ -78,15 +78,3 @@ export interface Modal {
 }
 
 export type Modals = keyof typeof modals;
-
-export interface SearchResult {
-    url: string;
-    address: string;
-    isToken: boolean;
-    isAccount: boolean;
-    isTransaction: boolean;
-    isDomain: boolean;
-    valid: boolean;
-    search: string;
-    multi?: Array<string>;
-}

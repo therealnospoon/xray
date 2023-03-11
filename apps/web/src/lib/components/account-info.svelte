@@ -3,7 +3,7 @@
 
     import { trpcWithQuery } from "$lib/trpc/client";
 
-    import shortenString from "$lib/util/shorten-string";
+    import { shortenString } from "@helius-labs/xray-util";
 
     import Namor from "$lib/components/providers/namor-provider.svelte";
     import IconCard from "$lib/components/icon-card.svelte";

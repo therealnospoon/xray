@@ -5,10 +5,9 @@ import type { ParsedAccountData } from "@solana/web3.js";
 
 import { redirect } from "@sveltejs/kit";
 
-import validatePubkey from "$lib/util/solana/validate-pubkey";
-
 import { getDomainKey, NameRegistryState } from "@bonfida/spl-name-service";
-import connect from "src/lib/util/solana/connect";
+
+import { solanaConnect, solanaValidatePubkey } from "@helius-labs/xray-util";
 
 // Decide where to go based on the search param.
 export async function load({ params, url }: RequestEvent) {
@@ -25,7 +24,7 @@ export async function load({ params, url }: RequestEvent) {
         return;
     }
 
-    const connection = connect();
+    const connection = solanaConnect();
 
     // If it's long, assume it's a tx.
     // TODO: better way to check if it's a tx?
@@ -34,7 +33,7 @@ export async function load({ params, url }: RequestEvent) {
     const probablySolanaName =
         params.search.length > 4 && params.search.slice(-4) === ".sol";
 
-    const pubKey = validatePubkey(params.search);
+    const pubKey = solanaValidatePubkey(params.search);
 
     if (probablyTransactionSignature) {
         throw redirect(307, `/${params.search}/tx`);

@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { Icon as IconType } from "src/lib/types";
 
-    import { copyToClipboard } from "$lib/util/clipboard";
+    import { copyToClipboard } from "@helius-labs/xray-util";
 
     import Icon from "$lib/components/icon.svelte";
 

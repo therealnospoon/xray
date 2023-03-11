@@ -2,7 +2,7 @@ import { z } from "zod";
 
 import { t } from "$lib/trpc/t";
 
-import connect from "$lib/util/solana/connect";
+import { solanaConnect } from "@helius-labs/xray-util";
 
 import { LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
 
@@ -17,7 +17,7 @@ export const accountInfo = t.procedure
             };
         }
 
-        const connection = connect();
+        const connection = solanaConnect();
 
         const pubKey = new PublicKey(address);
 

@@ -1,7 +1,7 @@
 <script lang="ts">
     import { nameFromString, getSolanaName } from "@helius-labs/helius-namor";
 
-    import shortenString from "$lib/util/shorten-string";
+    import { shortenString } from "@helius-labs/xray-util";
 
     export let text: string = "";
 

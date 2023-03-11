@@ -10,7 +10,6 @@
     import { trpcWithQuery } from "$lib/trpc/client";
 
     import Account from "$lib/components/account-data.svelte";
-    import shortenAddress from "$lib/util/shorten-string";
 
     import CopyButton from "$lib/components/copy-button.svelte";
     import IconCard from "$lib/components/icon-card.svelte";

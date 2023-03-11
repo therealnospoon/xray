@@ -1,0 +1,27 @@
+{
+  "name": "@helius-labs/xray-search",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsc -w",
+    "lint": "eslint --ext .ts src",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "eslint-config-custom": "*",
+    "tsconfig": "*"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@bonfida/spl-name-service": "^0.1.67",
+    "@solana/web3.js": "^1.73.3",
+    "@sveltejs/kit": "^1.11.0",
+    "@onsol/tldparser": "*",
+    "@helius-labs/xray-util": "*"
+  }
+}

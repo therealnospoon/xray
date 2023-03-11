@@ -5,7 +5,6 @@
 </style>
 
 <script lang="ts">
-    import type { SearchResult } from "$lib/types";
 
     import { onMount, createEventDispatcher } from "svelte";
 
@@ -21,6 +20,8 @@
 
     import { recentSearchesKey } from "$lib/config";
 
+    import { xraySearch } from "@helius-labs/xray-search";
+
     export let inputEl: HTMLInputElement | null = null;
     export let searchError = "";
     export let size = "sm" as "sm" | "lg";
@@ -34,6 +35,18 @@
 
         inputEl?.focus();
     };
+
+    interface SearchResult {
+        url: string;
+        address: string;
+        isToken: boolean;
+        isAccount: boolean;
+        isTransaction: boolean;
+        isDomain: boolean;
+        valid: boolean;
+        search: string;
+        multi?: Array<string>;
+    }
 
     let inputValue: string = "";
     let isSearching = false;

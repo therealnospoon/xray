@@ -2,7 +2,7 @@ import { json } from "@sveltejs/kit";
 
 import { Helius } from "helius-sdk";
 
-import randomBetween from "$lib/util/random-between";
+import { randomBetween } from "@helius-labs/xray-util";
 
 const { HELIUS_KEY } = process.env;
 

@@ -10,13 +10,13 @@
 
     import { transactionActionsMetadata } from "$lib/types";
 
-    import formatDate from "$lib/util/format-date";
+    import { formatDate } from "@helius-labs/xray-util";
 
     export let transaction: ProtonTransaction;
 
     import Icon from "$lib/components/icon.svelte";
     import IntersectionObserver from "svelte-intersection-observer";
-    import shortenString from "../util/shorten-string";
+    import { shortenString } from "@helius-labs/xray-util";
     import TokenProvider from "./providers/token-provider.svelte";
 
     let element: HTMLDivElement;

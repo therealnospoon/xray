@@ -1,5 +1,5 @@
 <script>
-    import formatMoney from "$lib/util/format-money";
+    import { formatMoney } from "@helius-labs/xray-util";
 
     import { SOL } from "@helius-labs/xray-proton";
 

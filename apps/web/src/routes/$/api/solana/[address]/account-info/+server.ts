@@ -1,11 +1,11 @@
 import { json, type RequestEvent } from "@sveltejs/kit";
 
-import connect from "$lib/util/solana/connect";
+import { solanaConnect } from "@helius-labs/xray-util";
 
 import { LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
 
 export async function GET({ params }: RequestEvent) {
-    const connection = connect();
+    const connection = solanaConnect();
 
     const pubKey = new PublicKey(params.address || "");
 
