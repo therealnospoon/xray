@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { Icon as IconType } from "src/lib/types";
 
-    import { copyToClipboard } from "$lib/util/clipboard";
+    import { clipboard } from "@helius-labs/xray-util";
 
     import Icon from "$lib/components/icon.svelte";
 
@@ -15,7 +15,7 @@
     export let size = "sm" as "xs" | "sm";
 
     const copy = () => {
-        copyToClipboard(text);
+        clipboard.copyToClipboard(text);
 
         copied = true;
 

@@ -4,6 +4,8 @@ import { t } from "$lib/trpc/t";
 
 const { HELIUS_KEY } = process.env;
 
+import { solana } from "@helius-labs/xray-util";
+
 export const price = t.procedure
     .input(z.string())
     .query(async ({ input: token }) => {
@@ -11,11 +13,5 @@ export const price = t.procedure
             return 25;
         }
 
-        const response = await fetch(
-            `https://public-api.birdeye.so/public/price/?address=${token}`
-        );
-
-        const json = await response.json();
-
-        return json.data.value;
+        return solana.getCurrentPrice(token);
     });

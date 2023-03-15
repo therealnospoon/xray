@@ -1,6 +1,6 @@
 import randomBetween from "$lib/util/random-between";
 
-import { Helius } from "helius-sdk";
+import { solana } from "@helius-labs/xray-util";
 
 import { t } from "$lib/trpc/t";
 
@@ -11,9 +11,5 @@ export const tps = t.procedure.query(async () => {
         return randomBetween(1000, 7000);
     }
 
-    const heliusAPI = new Helius(HELIUS_KEY || "");
-
-    const tps = await heliusAPI.getCurrentTPS();
-
-    return tps;
+    return solana.getCurrentTPS(HELIUS_KEY);
 });
