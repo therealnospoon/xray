@@ -1,6 +1,5 @@
 <script lang="ts">
     import type { UITokenMetadata } from "$lib/types";
-    import { SOL } from "@helius-labs/xray-proton";
 
     import { page } from "$app/stores";
 
@@ -14,66 +13,89 @@
 
     const client = trpcWithQuery($page);
 
-    const token = client.token.createQuery([address], {
+    const tokenMetadata = client.token.createQuery([address], {
         refetchOnMount: false,
         refetchOnWindowFocus: false,
     });
+    
+    $: metadata = $tokenMetadata?.data?.metadata;
 
-    const metadata: UITokenMetadata = {
-        address: "",
-        attributes: [],
-        collectionKey: "",
-        creators: [],
-        description: "",
-        image: "",
-        name: "",
-    };
-
-    const asset = client.asset.createQuery(address, {
-        refetchOnMount: false,
-        refetchOnWindowFocus: false,
-    });
+    $: console.log("METADATA", metadata)
 
     let element: HTMLDivElement;
 
-    $: if (address === SOL) {
-        metadata.name = "SOL";
-        metadata.image = "/media/tokens/solana.png";
-        metadata.address = SOL;
-    } else if ($asset?.data?.compressed) {
-        const data = $asset?.data;
-        metadata.address = data?.address || "";
-        metadata.attributes = data?.attributes || [];
-        metadata.creators = data?.creators || [];
-        metadata.description = data?.description || "";
-        metadata.collectionKey = data?.collectionKey || "";
-        metadata.image = data?.image || "";
-        metadata.name = data?.name || "";
-    } else {
-        // Kicks off the query
-        const data = $token?.data?.length ? $token.data[0] : {};
+    // $: if (address === SOL) {
+    //     metadata.name = "SOL";
+    //     metadata.image = "/media/tokens/solana.png";
+    //     metadata.address = SOL;
+    // } else if ($asset?.data?.compressed) {
+    //     const data = $asset?.data;
+    //     metadata.address = data?.address || "";
+    //     metadata.attributes = data?.attributes || [];
+    //     metadata.creators = data?.creators || [];
+    //     metadata.description = data?.description || "";
+    //     metadata.collectionKey = data?.collectionKey || "";
+    //     metadata.image = data?.image || "";
+    //     metadata.name = data?.name || "";
+    // } else {
+    //     // Kicks off the query
+    //     const data = $token?.data?.length ? $token.data[0] : {};
 
-        metadata.address = data?.account;
-        metadata.attributes = data?.offChainMetadata?.metadata?.attributes;
-        metadata.creators = data?.onChainMetadata?.metadata?.data?.creators;
-        metadata.description = data?.offChainMetadata?.metadata?.description;
-        metadata.collectionKey =
-            data?.onChainMetadata?.metadata?.collection?.key;
-        metadata.image =
-            data?.offChainMetadata?.metadata?.image ||
-            data?.onChainMetadata?.metadata?.data.image ||
-            data?.legacyMetadata?.logoURI;
-        metadata.name =
-            data?.offChainMetadata?.metadata?.name ||
-            data?.legacyMetadata?.name ||
-            data?.onChainMetadata?.metadata?.data.name;
-    }
+    //     metadata.address = data?.account;
+    //     metadata.attributes = data?.offChainMetadata?.metadata?.attributes;
+    //     metadata.creators = data?.onChainMetadata?.metadata?.data?.creators;
+    //     metadata.description = data?.offChainMetadata?.metadata?.description;
+    //     metadata.collectionKey =
+    //         data?.onChainMetadata?.metadata?.collection?.key;
+    //     metadata.image =
+    //         data?.offChainMetadata?.metadata?.image ||
+    //         data?.onChainMetadata?.metadata?.data.image ||
+    //         data?.legacyMetadata?.logoURI;
+    //     metadata.name =
+    //         data?.offChainMetadata?.metadata?.name ||
+    //         data?.legacyMetadata?.name ||
+    //         data?.onChainMetadata?.metadata?.data.name;
+    // }
 
-    $: tokenIsLoading = address !== SOL && $token.isLoading;
-    $: tokenFailed = $token.isError;
+    // $: if ($tokenMetadata.data?.isSOL) {
+    //     console.log("THIS IS SOL", metadata);
+    // } else if ($tokenMetadata.data?.isCompressed) {
+    //     const data = $tokenMetadata?.data.metadata;
+    //     metadata.address = data?.address || "";
+    //     metadata.attributes = data?.attributes || [];
+    //     metadata.creators = data?.creators || [];
+    //     metadata.description = data?.description || "";
+    //     metadata.collectionKey = data?.collectionKey || "";
+    //     metadata.image = data?.image || "";
+    //     metadata.name = data?.name || "";
+    //     console.log("COMPRESSED NFT", metadata)
+    // } else {
+    //     // Kicks off the query
+    //     const data = $tokenMetadata?.data?.length ? $tokenMetadata.data[0] : {};
+
+    //     metadata.address = data?.account;
+    //     metadata.attributes = data?.offChainMetadata?.metadata?.attributes;
+    //     metadata.creators = data?.onChainMetadata?.metadata?.data?.creators;
+    //     metadata.description = data?.offChainMetadata?.metadata?.description;
+    //     metadata.collectionKey =
+    //         data?.onChainMetadata?.metadata?.collection?.key;
+    //     metadata.image =
+    //         data?.offChainMetadata?.metadata?.image ||
+    //         data?.onChainMetadata?.metadata?.data.image ||
+    //         data?.legacyMetadata?.logoURI;
+    //     metadata.name =
+    //         data?.offChainMetadata?.metadata?.name ||
+    //         data?.legacyMetadata?.name ||
+    //         data?.onChainMetadata?.metadata?.data.name;
+    //     console.log("REGULAR NFT", metadata);
+    // }
+
+    $: tokenIsLoading = !$tokenMetadata?.data?.isSOL && $tokenMetadata.isLoading;
+    $: tokenFailed = $tokenMetadata.isError;
 
     // This could be better
-    $: isNFT = metadata?.attributes && metadata?.attributes?.length > 0;
+    $: isNFT = $tokenMetadata?.data?.isNFT ? true : false;
+
 </script>
 
 <div>
@@ -91,6 +113,7 @@
                 {tokenFailed}
                 {isNFT}
             />
+          
         {/if}
     </IntersectionObserver>
 </div>
